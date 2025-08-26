@@ -1,0 +1,4 @@
+---
+k9s_version: "v0.32.5"
+k9s_download_url: "https://github.com/derailed/k9s/releases/download/{{ k9s_version }}/k9s_Linux_amd64.tar.gz"
+k9s_install_path: "/usr/local/bin/k9s"

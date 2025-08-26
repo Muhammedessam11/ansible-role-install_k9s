@@ -1,0 +1,31 @@
+---
+- name: Ensure curl and tar are installed
+  apt:
+    name:
+      - curl
+      - tar
+    state: present
+    update_cache: yes
+
+- name: Download k9s tarball
+  get_url:
+    url: "{{ k9s_download_url }}"
+    dest: /tmp/k9s.tar.gz
+    mode: '0644'
+
+- name: Extract k9s binary
+  unarchive:
+    src: /tmp/k9s.tar.gz
+    dest: /tmp/
+    remote_src: yes
+
+- name: Move k9s binary to install path
+  command: mv /tmp/k9s "{{ k9s_install_path }}"
+  args:
+    creates: "{{ k9s_install_path }}"
+
+- name: Make k9s executable
+  file:
+    path: "{{ k9s_install_path }}"
+    mode: '0755'
+    state: file
